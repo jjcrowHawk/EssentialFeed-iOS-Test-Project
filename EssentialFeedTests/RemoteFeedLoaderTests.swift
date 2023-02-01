@@ -20,7 +20,7 @@ class RemoteFeedLoaderTests: XCTestCase {
         let url  = URL(string: "https://www.a-given-url.com")!
         let (sut, client) = makeSUT(url: url)
         
-        sut.load()
+        sut.load{_ in }
         
         XCTAssertEqual(client.requestedURL, url)
     }
@@ -29,8 +29,8 @@ class RemoteFeedLoaderTests: XCTestCase {
         let url  = URL(string: "https://www.a-given-url.com")!
         let (sut, client) = makeSUT(url: url)
         
-        sut.load()
-        sut.load()
+        sut.load{_ in }
+        sut.load{_ in }
         
         XCTAssertEqual(client.requestedURLs, [url, url])
     }
@@ -53,6 +53,8 @@ class RemoteFeedLoaderTests: XCTestCase {
         let sut = RemoteFeedLoader(url: url, client: client)
         return (sut, client)
     }
+    
+    // MARK: - Helpers
     
     private class HTTPClientSpy: HTTPClient {
         var requestedURL: URL?
