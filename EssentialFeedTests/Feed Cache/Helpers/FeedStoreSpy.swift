@@ -9,11 +9,13 @@ import Foundation
 import EssentialFeed
 
 class FeedStoreSpy: FeedStore {
+    
     private(set) var receivedMessages = [ReceivedMessage]()
     
     enum ReceivedMessage: Equatable {
         case deleteCachedFeed
         case insert([LocalFeedImage], Date)
+        case retrieve
     }
     
     
@@ -46,4 +48,8 @@ class FeedStoreSpy: FeedStore {
     func completeInsertionSuccessfuly(at index: Int = 0) {
         insertionCompletions[index](nil)
     }
+    
+    func retrieve() {
+        receivedMessages.append(.retrieve)
     }
+}
