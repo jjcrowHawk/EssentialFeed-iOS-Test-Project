@@ -9,30 +9,12 @@ import XCTest
 import EssentialFeed
 
 final class LoadFeedFromCacheUseCaseTests: XCTestCase {
+    
     func test_init_doesNotMessageStoreUponCreation() {
         let (_, store) = makeSUT()
         
         XCTAssertEqual(store.receivedMessages, [])
     }
-    
-//    func test_save_requestsCacheDeletion() {
-//        let (sut, store) = makeSUT()
-//
-//        sut.save(uniqueImageFeed().models){ _ in }
-//
-//        XCTAssertEqual(store.receivedMessages, [.deleteCachedFeed])
-//    }
-//
-//    func test_save_doesNotRequestCacheInsertionOnDeletionError() {
-//        let (sut, store) = makeSUT()
-//        let deletionError = anyNSError()
-//
-//        sut.save(uniqueImageFeed().models){ _ in }
-//        store.completeDeletion(with: deletionError)
-//
-//        XCTAssertEqual(store.receivedMessages, [.deleteCachedFeed])
-//    }
-
     
     // MARK: - HELPERS
     
@@ -42,45 +24,5 @@ final class LoadFeedFromCacheUseCaseTests: XCTestCase {
         trackForMemoryLeaks(store, file: file, line: line)
         trackForMemoryLeaks(sut, file: file, line: line)
         return (sut, store)
-    }
-    
-    private class FeedStoreSpy: FeedStore {
-        private(set) var receivedMessages = [ReceivedMessage]()
-        
-        enum ReceivedMessage: Equatable {
-            case deleteCachedFeed
-            case insert([LocalFeedImage], Date)
-        }
-        
-        
-        
-        private var deletionCompletions = [DeletionCompletion]()
-        private var insertionCompletions = [InsertionCompletion]()
-        
-        func deleteCachedFeed(completion: @escaping DeletionCompletion) {
-            deletionCompletions.append(completion)
-            receivedMessages.append(.deleteCachedFeed)
-        }
-        
-        func completeDeletionSuccesfully(at index: Int = 0) {
-            deletionCompletions[index](nil)
-        }
-        
-        func completeDeletion(with error: Error, at index: Int = 0) {
-            deletionCompletions[index](error)
-        }
-        
-        func insert(_ feed: [LocalFeedImage], timestamp: Date, completion: @escaping InsertionCompletion) {
-            insertionCompletions.append(completion)
-            receivedMessages.append(.insert(feed, timestamp))
-        }
-        
-        func completeInsertion(with error: Error, at index: Int = 0) {
-            insertionCompletions[index](error)
-        }
-        
-        func completeInsertionSuccessfuly(at index: Int = 0) {
-            insertionCompletions[index](nil)
-        }
     }
 }
