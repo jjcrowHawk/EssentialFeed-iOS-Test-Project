@@ -20,9 +20,9 @@ public final class CoreDataFeedStore: FeedStore {
         perform { context in
             do {
                 if let cache = try ManagedCache.find(in: context) {
-                    completion(.success(.found(feed: cache.localFeed, timestamp: cache.timestamp)))
+                    completion(.success(CachedFeed(feed: cache.localFeed, timestamp: cache.timestamp)))
                 } else {
-                    completion(.success(.empty))
+                    completion(.success(.none))
                 }
             } catch {
                 completion(.failure(error))
@@ -36,7 +36,7 @@ public final class CoreDataFeedStore: FeedStore {
                 let managedCache = try ManagedCache.newUniqueInstance(in: context)
                 managedCache.timestamp = timestamp
                 managedCache.feed = ManagedFeedImage.images(from: feed, in: context)
-                try context.save ()
+                try context.save()
                 completion (nil)
             } catch {
                 completion(error)
