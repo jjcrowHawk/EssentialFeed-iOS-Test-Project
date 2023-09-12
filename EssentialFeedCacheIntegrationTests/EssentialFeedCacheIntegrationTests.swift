@@ -23,7 +23,7 @@ final class EssentialFeedCacheIntegrationTests: XCTestCase {
     }
     
     func test_load_deliversNoITemsOnEmptyCache() {
-        let sut = makeSUT ( )
+        let sut = makeSUT()
         
         expect(sut, toLoad: [])
     }
@@ -38,7 +38,7 @@ final class EssentialFeedCacheIntegrationTests: XCTestCase {
         expect(sutToPerformLoad, toLoad: feed)
     }
     
-    func test_save_overridesItemsSavedOnASeparateInstance ( ) {
+    func test_save_overridesItemsSavedOnASeparateInstance() {
         let sutToPerformFirstSave = makeSUT()
         let sutToPerformLastSave = makeSUT()
         let sutToPerformLoad = makeSUT()
