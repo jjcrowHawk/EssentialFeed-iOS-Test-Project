@@ -17,12 +17,26 @@ class FeedImageCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        
+        feedImageView.alpha = 0
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        feedImageView.alpha = 0
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+    }
+    
+    func fadeIn(_ image: UIImage?) {
+        feedImageView.image = image
+        
+        UIView.animate(withDuration: 0.3, delay: 0.3, options: [], animations: { self.feedImageView.alpha = 1})
     }
 
 }
