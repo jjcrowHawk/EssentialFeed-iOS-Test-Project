@@ -2,9 +2,8 @@
   Feed.strings
   EssentialFeed
 
-  Created by Macbook Pro on 20/9/23.
+  Created by Macbook Pro on 22/9/23.
   
 */
 "FEED_VIEW_TITLE" = "Meu Feed";
 "FEED_VIEW_CONNECTION_ERROR" = "Não foi possível conectar com o servidor";
-

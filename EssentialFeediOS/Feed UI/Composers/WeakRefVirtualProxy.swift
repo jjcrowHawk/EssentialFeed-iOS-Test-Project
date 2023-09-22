@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import EssentialFeed
 import UIKit
 
 final class WeakRefVirtualProxy<T: AnyObject> {
