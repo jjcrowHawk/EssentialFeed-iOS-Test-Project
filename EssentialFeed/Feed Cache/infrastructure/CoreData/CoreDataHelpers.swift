@@ -8,11 +8,9 @@
 import CoreData
 
 extension NSPersistentContainer {
-    static func load(modelName: String, url modelURL: URL, in bundle: Bundle) throws -> NSPersistentContainer {
-        let description = NSPersistentStoreDescription(url: modelURL)
-        let modelURL = bundle.url(forResource: modelName, withExtension: "momd")
-        let managedObjectModel = NSManagedObjectModel(contentsOf: modelURL!)
-        let container = NSPersistentContainer(name: modelName, managedObjectModel: managedObjectModel!)
+    static func load(name: String, model: NSManagedObjectModel, url: URL) throws -> NSPersistentContainer {
+        let description = NSPersistentStoreDescription(url: url)
+        let container = NSPersistentContainer(name: name, managedObjectModel: model)
         container.persistentStoreDescriptions = [description]
         
         var loadError: Swift.Error?
