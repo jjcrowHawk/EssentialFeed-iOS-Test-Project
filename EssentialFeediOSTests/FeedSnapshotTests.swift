@@ -36,6 +36,14 @@ class FeedSnapshotTests: XCTestCase {
         record(snapshot: sut.snapshot() , named: "FEED _WITH _ERROR _MESSAGE")
     }
     
+    func test_feedWithFailedImageLoading() {
+        let sut = makeSUT()
+        
+        sut.display(feedWithFailedImageLoading())
+        
+        record(snapshot: sut.snapshot() , named: "FEED _WITH_FAILED_IMAGE_LOADING")
+    }
+    
     
     // MARK: - HELPERS
     
@@ -62,6 +70,21 @@ class FeedSnapshotTests: XCTestCase {
                 description: "Garth Pier is a Grade II listed structure in Bangor, Gwynedd, North Wales.",
                 location: "Garth Pier",
                 image: UIImage.make(withColor: .green)
+            )
+        ]
+    }
+    
+    private func feedWithFailedImageLoading() -> [ImageStub] {
+        return [
+            ImageStub(
+                description: nil,
+                location: "Cannon Street, London",
+                image: nil
+            ),
+            ImageStub(
+                description: nil,
+                location: "Brighton Seafront",
+                image: nil
             )
         ]
     }
