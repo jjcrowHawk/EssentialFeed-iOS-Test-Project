@@ -270,7 +270,7 @@ final class FeedUIIntegrationTests: XCTestCase {
         sut.loadViewIfNeeded()
         
         let exp = expectation(description: "Wasit for background queue")
-        DispatchQueue.global(qos: .background).async {
+        DispatchQueue.global().async {
             loader.completeFeedLoading(at: 0)
             exp.fulfill()
         }
@@ -287,7 +287,7 @@ final class FeedUIIntegrationTests: XCTestCase {
         _ = sut.simulateFeedImageViewVisible(at: 0)
         
         let exp = expectation(description: "Wait for background queue work")
-        DispatchQueue.global(qos: .background).async {
+        DispatchQueue.global().async {
             loader.completeImageLoading(with: self.anyImageData(), at: 0)
             exp.fulfill()
         }
